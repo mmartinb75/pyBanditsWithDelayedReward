@@ -1,0 +1,123 @@
+# -*- coding: utf-8 -*-
+'''Simulation of batch reward updated architectures'''
+
+__author__ = "Miguel Martin, Antonio Jimenez, Alfonso Mateos"
+__version__ = "1.0"
+
+methods_dict = {'DMED': 'DMED',
+                'klUCB+': 'klUCBplus',
+                'BESA': 'besa',
+                'UCB': 'UCB',
+                'klUCB': 'klUCB',
+                'klUCB poisson': 'klUCB_poisson',
+                'klUCB exp': 'klUCB_exp',
+                'PR1': 'PossibilisticReward',
+                'PR2': 'PossibilisticReward_chernoff2',
+                'PR3': 'PossibilisticReward_Bern1'}
+
+mean_0_rewards = {'data_delayed/bernoulli_low_var_basic': {'DMED': 92.35,
+                                                           'klUCB+': 116.42,
+                                                           'BESA': 71.07,
+                                                           'UCB': 464.54,
+                                                           'klUCB': 174.41,
+                                                           'PR1': 242.08,
+                                                           'PR2': 91.87,
+                                                           'PR3': 91.87},
+
+                  'data_delayed/bernoulli_low_var_random':{'DMED': 92.35,
+                                                           'klUCB+': 116.42,
+                                                           'BESA': 71.07,
+                                                           'UCB': 464.54,
+                                                           'klUCB': 174.41,
+                                                           'PR1': 242.08,
+                                                           'PR2': 91.87,
+                                                           'PR3': 91.87},
+
+                  'data_delayed/bernoulli_high_var_basic':{'DMED': 356.84,
+                                                           'klUCB+': 349.7,
+                                                           'BESA': 281.6,
+                                                           'UCB': 490.97,
+                                                           'klUCB': 491.49,
+                                                           'PR1': 283.28,
+                                                           'PR2': 280.83,
+                                                           'PR3': 280.83},
+
+                  'data_delayed/poisson_basic':           {'DMED': 978.56,
+                                                           'klUCB+': 1190.64,
+                                                           'BESA': 2015.73,
+                                                           'UCB': 2632.65,
+                                                           'klUCB': 1817.4,
+                                                           'klUCB poisson': 314.99,
+                                                           'PR1': 1314.9,
+                                                           'PR2': 917.67,
+                                                           'PR3': 736.6},
+
+                  'data_delayed/exponential_basic':       {'DMED': 645.70,
+                                                           'klUCB+': 813.45,
+                                                           'BESA': 755.87,
+                                                           'UCB': 1295.79,
+                                                           'klUCB': 1219.98,
+                                                           'klUCB exp': 786.30,
+                                                           'PR1': 660.64,
+                                                           'PR2': 630.38,
+                                                           'PR3': 565.79}}
+
+
+std_0_rewards = {'data_delayed/bernoulli_low_var_basic':  {'DMED': 77.28,
+                                                           'klUCB+': 77.34,
+                                                           'BESA': 76.7,
+                                                           'UCB': 81.83,
+                                                           'klUCB': 77.74,
+                                                           'PR1': 53.05,
+                                                           'PR2': 45.44,
+                                                           'PR3': 45.44},
+
+                 'data_delayed/bernoulli_low_var_random':  {'DMED': 77.28,
+                                                           'klUCB+': 77.34,
+                                                           'BESA': 76.7,
+                                                           'UCB': 81.83,
+                                                           'klUCB': 77.74,
+                                                           'PR1': 53.05,
+                                                           'PR2': 45.44,
+                                                           'PR3': 45.44},
+
+                 'data_delayed/bernoulli_high_var_basic': {'DMED': 151.47,
+                                                           'klUCB+': 104.72,
+                                                           'BESA': 260.88,
+                                                           'UCB': 104.93,
+                                                           'klUCB': 104.28,
+                                                           'PR1': 124.59,
+                                                           'PR2': 121.1,
+                                                           'PR3': 121.1},
+
+                 'data_delayed/poisson_basic':            {'DMED': 225.24,
+                                                           'klUCB+': 225.82,
+                                                           'BESA': 3561.5,
+                                                           'UCB': 246.03,
+                                                           'klUCB': 236.57,
+                                                           'klUCB poisson': 201.79,
+                                                           'PR1': 234.25,
+                                                           'PR2': 222.79,
+                                                           'PR3': 210.96},
+
+                 'data_delayed/exponential_basic':        {'DMED': 493.8,
+                                                           'klUCB+': 494.59,
+                                                           'BESA': 2323.22,
+                                                           'UCB': 514.03,
+                                                           'klUCB': 510.69,
+                                                           'klUCB exp': 498.16,
+                                                           'PR1': 492.37,
+                                                           'PR2': 487.01,
+                                                           'PR3': 480.99}}
+
+methods_colors = {'DMED': 'blue',
+                'klUCB+': 'green',
+                'BESA': 'red',
+                'UCB': 'yellow',
+                'klUCB': 'pink',
+                'klUCB poisson': 'grey',
+                'klUCB exp': 'grey',
+                'PR1': 'black',
+                'PR2': 'cyan',
+                'PR3': 'magenta'}
+
